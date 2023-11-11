@@ -3,10 +3,14 @@
 namespace Grimzy\LaravelMysqlSpatial\Eloquent;
 
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Grammar;
 
+/**
+ * @property-read object $value
+ */
 class SpatialExpression extends Expression
 {
-    public function getValue()
+    public function getValue(Grammar $grammar = null)
     {
         return "ST_GeomFromText(?, ?)";
     }
