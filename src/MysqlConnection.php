@@ -16,15 +16,15 @@ class MysqlConnection extends IlluminateMySqlConnection
         if (class_exists(DoctrineType::class)) {
             // Prevent geometry type fields from throwing a 'type not found' error when changing them
             $geometries = [
-                'geometry',
-                'point',
-                'linestring',
-                'polygon',
-                'multipoint',
-                'multilinestring',
-                'multipolygon',
-                'geometrycollection',
-                'geomcollection',
+                'Geometry',
+                'Point',
+                'LineString',
+                'Polygon',
+                'MultiPoint',
+                'MultiLineString',
+                'MultiPolygon',
+                'GeometryCollection',
+                // 'geomcollection',
             ];
             foreach ($geometries as $type) {
                 if(!DoctrineType::hasType($type)){
