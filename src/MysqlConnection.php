@@ -26,9 +26,10 @@ class MysqlConnection extends IlluminateMySqlConnection
                 'geometrycollection',
                 'geomcollection',
             ];
-            $dbPlatform = $this->getDoctrineSchemaManager()->getDatabasePlatform();
             foreach ($geometries as $type) {
-                $dbPlatform->registerDoctrineTypeMapping($type, 'string');
+                if(!DoctrineType::hasType($type)){
+                    DoctrineType::addType($type, '\\Grimzy\\LaravelMysqlSpatial\\Doctrine\\' . $type);
+                }
             }
         }
     }
