@@ -1,22 +1,24 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use Mockery;
 
 abstract class BaseTestCase extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
+        parent::tearDown();
     }
 
-    protected function assertException($exceptionName, $exceptionMessage = '', $exceptionCode = 0)
+    protected function assertException(string $exceptionName, string $exceptionMessage = '', int $exceptionCode = 0): void
     {
-        if (method_exists(parent::class, 'expectException')) {
-            parent::expectException($exceptionName);
-            parent::expectExceptionMessage($exceptionMessage);
-            parent::expectExceptionCode($exceptionCode);
-        } else {
-            $this->setExpectedException($exceptionName, $exceptionMessage, $exceptionCode);
+        $this->expectException($exceptionName);
+        if ($exceptionMessage) {
+            $this->expectExceptionMessage($exceptionMessage);
+        }
+        if ($exceptionCode) {
+            $this->expectExceptionCode($exceptionCode);
         }
     }
 }

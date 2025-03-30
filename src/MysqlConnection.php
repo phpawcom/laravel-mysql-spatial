@@ -6,10 +6,14 @@ use Doctrine\DBAL\Types\Type as DoctrineType;
 use Grimzy\LaravelMysqlSpatial\Schema\Builder;
 use Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar;
 use Illuminate\Database\MySqlConnection as IlluminateMySqlConnection;
+use PDO;
+use Illuminate\Database\Schema\Builder as SchemaBuilder;
+use Closure;
+use Doctrine\DBAL\Driver\PDO\Connection;
 
 class MysqlConnection extends IlluminateMySqlConnection
 {
-    public function __construct($pdo, $database = '', $tablePrefix = '', array $config = [])
+    public function __construct(PDO|Closure $pdo, string $database = '', string $tablePrefix = '', array $config = [])
     {
         parent::__construct($pdo, $database, $tablePrefix, $config);
 
@@ -26,29 +30,29 @@ class MysqlConnection extends IlluminateMySqlConnection
                 'geometrycollection',
                 'geomcollection',
             ];
-            $dbPlatform = $this->getDoctrineSchemaManager()->getDatabasePlatform();
-            foreach ($geometries as $type) {
-                $dbPlatform->registerDoctrineTypeMapping($type, 'string');
+            
+            if ($pdo instanceof PDO) {
+                $connection = new Connection($pdo);
+                $dbPlatform = $connection->getDatabasePlatform();
+                foreach ($geometries as $type) {
+                    $dbPlatform->registerDoctrineTypeMapping($type, 'string');
+                }
             }
         }
     }
 
     /**
      * Get the default schema grammar instance.
-     *
-     * @return \Illuminate\Database\Grammar
      */
-    protected function getDefaultSchemaGrammar()
+    protected function getDefaultSchemaGrammar(): MySqlGrammar
     {
-        return $this->withTablePrefix(new MySqlGrammar());
+        return new MySqlGrammar();
     }
 
     /**
      * Get a schema builder instance for the connection.
-     *
-     * @return \Illuminate\Database\Schema\MySqlBuilder
      */
-    public function getSchemaBuilder()
+    public function getSchemaBuilder(): SchemaBuilder
     {
         if (is_null($this->schemaGrammar)) {
             $this->useDefaultSchemaGrammar();

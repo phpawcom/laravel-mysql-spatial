@@ -22,10 +22,8 @@ class SpatialServiceProvider extends DatabaseServiceProvider
 {
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         // The connection factory is used to create the actual connection instances on
         // the database. We will inject the factory into the manager so that it may

@@ -1,5 +1,7 @@
 # Laravel MySQL Spatial extension
 
+> **Note**: This package has been updated using AI to be compatible with Laravel 12. The original package was created by [grimzy/laravel-mysql-spatial](https://github.com/grimzy/laravel-mysql-spatial) and [Mane-Olawale/laravel-mysql-spatial](https://github.com/Mane-Olawale/laravel-mysql-spatial).
+
 [![Build Status](https://img.shields.io/travis/grimzy/laravel-mysql-spatial.svg?style=flat-square)](https://travis-ci.org/grimzy/laravel-mysql-spatial)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/grimzy/laravel-mysql-spatial.svg?style=flat-square)](https://codeclimate.com/github/grimzy/laravel-mysql-spatial/maintainability)
 [![Code Climate](https://img.shields.io/codeclimate/c/grimzy/laravel-mysql-spatial.svg?style=flat-square&colorB=4BCA2A)](https://codeclimate.com/github/grimzy/laravel-mysql-spatial/test_coverage) [![Packagist](https://img.shields.io/packagist/v/grimzy/laravel-mysql-spatial.svg?style=flat-square)](https://packagist.org/packages/grimzy/laravel-mysql-spatial)
@@ -15,8 +17,9 @@ Please check the documentation for your MySQL version. MySQL's Extension for Spa
 - `1.x.x`: MySQL 5.6 (also supports MySQL 5.5 but not all spatial analysis functions)
 - `2.x.x`: MySQL 5.7 and 8.0 (Laravel version < 8.0)
 - `3.x.x`: MySQL 8.0 with SRID support (Laravel version < 8.0)
-- **`4.x.x`: MySQL 8.0 with SRID support (Laravel 8+) [Current branch]**
+- `4.x.x`: MySQL 8.0 with SRID support (Laravel 8+)
 - `5.x.x`: MySQL 5.7 and 8.0 (Laravel 8+)
+- **`6.x.x`: MySQL 8.0 with SRID support (Laravel 12+) [Current branch]**
 
 This package also works with MariaDB. Please refer to the [MySQL/MariaDB Spatial Support Matrix](https://mariadb.com/kb/en/library/mysqlmariadb-spatial-support-matrix/) for compatibility.
 
@@ -25,22 +28,22 @@ This package also works with MariaDB. Please refer to the [MySQL/MariaDB Spatial
 Add the package using composer:
 
 ```sh
-$ composer require grimzy/laravel-mysql-spatial:^4.0
+$ composer require phpawcom/laravel-mysql-spatial:^6.0
 
 # or for Laravel version < 8.0
-$ composer require grimzy/laravel-mysql-spatial:^3.0
+$ composer require phpawcom/laravel-mysql-spatial:^3.0
 ```
 
 For MySQL 5.7:
 
 ```shell
-$ composer require grimzy/laravel-mysql-spatial:^2.0
+$ composer require phpawcom/laravel-mysql-spatial:^2.0
 ```
 
 For MySQL 5.6 and 5.5:
 
 ```shell
-$ composer require grimzy/laravel-mysql-spatial:^1.0
+$ composer require phpawcom/laravel-mysql-spatial:^1.0
 ```
 
 For Laravel versions before 5.5 or if not using auto-discovery, register the service provider in `config/app.php`:
@@ -50,7 +53,7 @@ For Laravel versions before 5.5 or if not using auto-discovery, register the ser
   /*
    * Package Service Providers...
    */
-  Grimzy\LaravelMysqlSpatial\SpatialServiceProvider::class,
+  Phpawcom\LaravelMysqlSpatial\SpatialServiceProvider::class,
 ],
 ```
 
